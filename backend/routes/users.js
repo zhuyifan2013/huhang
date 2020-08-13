@@ -31,10 +31,12 @@ router.post('/create', function (req, res) {
             const finalUser = new Users({_id: mongoose.Types.ObjectId(), ...user});
             finalUser.save(function (err, doc) {
                 if (err) {
+                    console.log('Fail to save user: ' + err)
                     res.json(buildErrorResponse(-1, 'Fail to save user'))
+                } else {
+                    console.log(doc)
+                    res.json(buildSuccessResponse(JSON.stringify({user: doc})))
                 }
-                console.log(doc)
-                res.json(buildSuccessResponse(JSON.stringify({user: doc})))
             })
         }
     })
