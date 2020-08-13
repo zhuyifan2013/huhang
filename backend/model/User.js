@@ -6,15 +6,19 @@ const UsersSchema = new Schema({
     _id:String,
     wechat_openid: String,
     user_name:String,
+    user_avatar: String,
     user_nickname:String,
     user_school_code: String,
     user_school: String,
+    school_country_code: String,
+    school_country: String,
     user_grade: String,
     user_major_code: String,
     user_major: String,
     user_role: String,
     user_description: String,
     senior_num: String,
+    user_student_card: String
 });
 
 
