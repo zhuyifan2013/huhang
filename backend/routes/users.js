@@ -19,13 +19,21 @@ router.get('/', function (req, res) {
     })
 });
 
-router.post('/create', function (req, res) {
+router.post('/update', function (req, res) {
     const {body: {user}} = req;
-
     Users.findOne({wechat_openid: user.wechat_openid}, function (err, doc) {
         if (doc != null) {
             console.log("Find a user with openID:" + user.wechat_openid)
-            res.json(buildSuccessResponse(JSON.stringify({user: doc})))
+            for (const [key, value] of Object.entries(user)) {
+                doc[key] = value
+            }
+            doc.save(function (err, newDoc) {
+                if (err) {
+                    console.log('Fail to save user: ' + err)
+                    res.json(buildErrorResponse(-1, 'Fail to save user'))
+                }
+                res.json(buildSuccessResponse(JSON.stringify({user: newDoc})))
+            })
         } else {
             console.log("Create a new user with openID: " + user.wechat_openid)
             const finalUser = new Users({_id: mongoose.Types.ObjectId(), ...user});
