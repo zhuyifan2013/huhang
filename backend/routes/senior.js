@@ -7,7 +7,7 @@ var multer = require('multer')
 var upload = multer()
 const axios = require('axios')
 var FormData = require('form-data');
-var fs = require('fs')
+const constants = require('../constants')
 
 const Users = mongoose.model('Users');
 /* GET home page. */
@@ -18,8 +18,13 @@ router.post('/apply', function (req, res) {
         }
     } = req;
     Users.findOneAndUpdate({wechat_openid: wechat_openid}, {
-        user_role: "senior_unverified", user_name: user_name, user_school: user_school, user_grade: user_grade,
-        user_major: user_major, user_description: user_description, user_student_card: user_student_card
+        user_role: constants.USER_ROLE_SENIOR_UNVERIFIED,
+        user_name: user_name,
+        user_school: user_school,
+        user_grade: user_grade,
+        user_major: user_major,
+        user_description: user_description,
+        user_student_card: user_student_card
     }, {new: true}, function (err, doc) {
         if (err) {
             res.json(buildErrorResponse(-1, 'Error when finding user'))

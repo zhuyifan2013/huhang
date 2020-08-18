@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const {buildSuccessResponse, buildErrorResponse} = require("../response");
 const router = express.Router();
+const constants = require('../constants')
 
 const Users = mongoose.model('Users');
 
@@ -36,7 +37,10 @@ router.post('/update', function (req, res) {
             })
         } else {
             console.log("Create a new user with openID: " + user.wechat_openid)
-            const finalUser = new Users({_id: mongoose.Types.ObjectId(), ...user});
+            const finalUser = new Users({
+                _id: mongoose.Types.ObjectId(),
+                user_role: constants.USER_ROLE_STUDENT, ...user
+            });
             finalUser.save(function (err, doc) {
                 if (err) {
                     console.log('Fail to save user: ' + err)
