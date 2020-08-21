@@ -7,7 +7,8 @@ const SchoolSchema = new Schema({
     school_code: Number,
     school_name: String,
     school_description: String,
-    school_logo: String
+    school_logo: String,
+    school_country: String
 });
 
 mongoose.model('School', SchoolSchema);

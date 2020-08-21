@@ -7,10 +7,17 @@ var multer = require('multer')
 var upload = multer()
 const axios = require('axios')
 var FormData = require('form-data');
-const constants = require('../constants')
+const constants = require('../constants');
 
 const Users = mongoose.model('Users');
-/* GET home page. */
+
+router.get('/', function (req, res) {
+    Users.find({user_role: "senior"}, function (err, docs) {
+        console.log(docs)
+        res.json(buildSuccessResponse(JSON.stringify({seniors: docs})))
+    })
+});
+
 router.post('/apply', function (req, res) {
     const {
         body: {
