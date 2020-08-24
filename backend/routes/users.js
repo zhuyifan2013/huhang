@@ -20,6 +20,23 @@ router.get('/', function (req, res) {
     })
 });
 
+router.get('/wechat_openid', function (req, res) {
+    const {query: {wechat_openids}} = req;
+    let findObj = {}
+    if (wechat_openids) {
+        findObj = {wechat_openid: {$in: wechat_openids.split(',')}}
+    }
+    console.log(findObj)
+    Users.find(findObj, function (err, docs) {
+        let result = {}
+        docs.forEach(doc => {
+            result[doc["wechat_openid"]] = {"user_info" : doc}
+        })
+        console.log(result)
+        res.json(buildSuccessResponse(JSON.stringify(result)))
+    })
+});
+
 router.post('/update', function (req, res) {
     const {body: {user}} = req;
     Users.findOne({wechat_openid: user.wechat_openid}, function (err, doc) {
