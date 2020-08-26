@@ -18,7 +18,8 @@ for index in range(df.shape[0]):
         "user_description": str(item["user_description"]),
         "senior_num": str(item["senior_num"]),
         "user_phone": str(item["user_phone"]),
-        "user_role": str(item["user_role"])
+        "user_role": str(item["user_role"]),
+        "user_grade": str(item["user_grade"])
     }
     userList.append(user_item)
 

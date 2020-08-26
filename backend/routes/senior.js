@@ -21,15 +21,15 @@ router.get('/', function (req, res) {
 router.post('/apply', function (req, res) {
     const {
         body: {
-            wechat_openid, user_name, user_school, user_grade, user_major, user_description, user_student_card
+            wechat_openid, user_name, school_name, user_grade, major_name_level_2, user_description, user_student_card
         }
     } = req;
     Users.findOneAndUpdate({wechat_openid: wechat_openid}, {
         user_role: constants.USER_ROLE_SENIOR_UNVERIFIED,
         user_name: user_name,
-        user_school: user_school,
+        school_name: school_name,
         user_grade: user_grade,
-        user_major: user_major,
+        major_name_level_2: major_name_level_2,
         user_description: user_description,
         user_student_card: user_student_card
     }, {new: true}, function (err, doc) {

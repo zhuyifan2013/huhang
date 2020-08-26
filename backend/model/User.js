@@ -18,7 +18,8 @@ const UsersSchema = new Schema({
     user_description: String,
     senior_num: String,
     user_student_card: String,
-    user_phone: String
+    user_phone: String,
+    user_grade: String
 });
 
 
